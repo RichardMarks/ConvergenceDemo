@@ -1,0 +1,15 @@
+ConvergenceDemo
+
+A demonstration of convergence AI.
+
+You are given a "player" marker to control and many enemies will converge on your location.
+
+History:
+Originally a C DOS VGA demonstration by Andre LaMothe, I ported the demo to Python using PyGame in 2006.
+I then ported the demo from Python to C++ using Allegro in 2009.
+In 2010, I ported the demo to AS3 using FlashPunk.
+
+Now in 2011, I've re-written this demo and have placed it on Github for anyone to use.
+
+-Richard Marks
+ccpsceo@gmail.com
