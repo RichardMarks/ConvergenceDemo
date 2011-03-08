@@ -1,5 +1,6 @@
 package  
 {
+	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -21,7 +22,20 @@ package
 		// the starting location of the soldier
 		private var originPosition:Point = new Point();
 		
-		public function Soldier(xPos:Number = 0, yPos:Number = 0) 
+		// The actual bitmapdata of the noise
+		static public var noise:BitmapData; 
+		
+		// Length of the cycle - this is a bit arbitrary
+		static public var noiseLength:int = 256; 
+		
+		// Internal counter (corresponds to the x-pos of the noise bitmap)
+		private var noiseCounter:int = 0;
+		
+		// y-pos of the noise bitmap (different for each soldier)
+		public var noiseIndex:int = 0; 
+		
+		
+		public function Soldier(xPos:Number = 0, yPos:Number = 0, noiseIndex:int = 0) 
 		{
 			// set the soldier's graphics
 			graphic = new Image(Assets.SOLDIER_GFX);
@@ -29,6 +43,9 @@ package
 			// position the soldier
 			x = xPos;
 			y = yPos;
+			
+			// set the soldier's noise index
+			this.noiseIndex = noiseIndex;
 		}
 		
 		override public function added():void 
@@ -56,7 +73,12 @@ package
 			deltaPosition.y = dy * speed;
 			*/
 			
-			var speed:Number = (FP.random * 4);
+			//var speed:Number = (FP.random * 4);
+			
+			var speed:Number = 4 * Math.pow(((noise.getPixel(noiseCounter, noiseIndex) & 0xFF) as Number) / 255, 0.75);
+			
+			// Increment noise counter:
+			noiseCounter = (noiseCounter + 1) % noiseLength;
 			
 			deltaPosition.x = target.x - x;
 			deltaPosition.y = target.y - y;
